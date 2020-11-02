@@ -53,7 +53,7 @@ int main() {
     // Задаача 3.4 "Фильтр"
     string temp;
     fstream MyFile;
-    MyFile.open("123.txt");
+    MyFile.open("..\\123.txt");
     while(!MyFile.eof()) { // get() возвращает true если нашелся символ
         getline(MyFile, temp);
         for (int i = 0; i != temp.length() ; ++i) {
