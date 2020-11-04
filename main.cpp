@@ -3,7 +3,7 @@
 #include <cmath>
 #include <fstream>
 #include <iomanip>
-#include "typeinfo"
+#include <typeinfo>
 
 using namespace std;
 
@@ -267,22 +267,54 @@ int main() {
     MyFile.close();*/
 
     // Задаача 3.4 "Фильтр"
-    string temp;
-    fstream MyFile;
+    /*fstream MyFile;
+    string temp, out, finalOut;
+    int j, dotCount = 0;
     MyFile.open("..\\123.txt");
-    while(!MyFile.eof()) { // get() возвращает true если нашелся символ
+    while(!MyFile.eof()) {
         getline(MyFile, temp);
-        for (int i = 0; i != temp.length() ; ++i) {
-            if (isdigit(temp[i])) {
-                cout << temp[i];
+        for (int i = 0; i != temp.length(); ++i) { // Отсеивает числа и точки
+            if (isdigit(temp[i]) || temp[i] == '.') {
+                out += temp[i];
             }
             else
-                cout << " ";
+                out += " ";
         }
-        cout << endl;
+        while (out[j] != '\0') { // Чистит пробелы
+            if (out[j] == ' ' & out[j + 1] == ' ') {
+                out.replace(j, 1, "");
+                j = -1;
+            }
+            j++;
+        }
+        j = 0;
+        if (out[0] == ' ') // Убирает пробел в начале
+            out.replace(0, 1, "");
+        while (!out.empty()) { // Отсеивает неправильные числа с плавающей точкой
+            temp = out.substr(0, out.find(' ')); // строка до пробела
+            out = out.substr(temp.length() + 1); // Обрезает строку от temp до след. пробела
+            for (int i = 0; i != temp.length() ; ++i) {
+                if (temp[i] == '.')
+                    dotCount++;
+                if (temp[i] == '.' & temp[i + 1] == '\0')
+                    dotCount++;
+                if (temp[i] == '.' & temp[i - 1] == '\0')
+                    dotCount++;
+            }
+            if (dotCount < 2) {
+                finalOut += temp + " ";
+            }
+            dotCount = 0;
+        }
+        cout << finalOut << endl;
+        finalOut = "";
     }
-    MyFile.close();
+    MyFile.close();*/
 
+    // Задаача 3.5 "Сортировка букв"
+    string a[];
+    cin >> a;
+    cout << a;
 
     /*string fileName, temp;
     fstream MyFile;
