@@ -238,23 +238,26 @@ int main() {
             total = (S * r * pow(1 + r, n)) / (12 * (pow(1 + r, n) - 1));
         }
         else
-            total = (S / (12 * n));
-        cout << "Месячная выплата составит: " << to_string(total).substr(0, to_string(total).find(".")) <<
-        " рублей " << to_string(round(total * 100) / 100).substr(to_string(round(total * 100) / 100).find(".") + 1, 2) << " копеек";
+            total = S / (12 * n);
+        cout << "Месячная выплата составит: " << to_string(total).substr(0, to_string(total).find('.')) <<
+        " рублей " << to_string(round(total * 100) / 100).substr(to_string(round(total * 100) / 100).find('.') + 1, 2) << " копеек";
     }
     else
         cout << "Введите положительные числа!";*/
 
     // Задача 3.2 "Ссуда"
-    /*double S, m, n, r;
+    /*double S, m, n, r, p;
     cout << "Введите сумму займа: ";
     cin >> S;
     cout << "Введите сумму месячной выплаты: ";
     cin >> m;
     cout << "Введите срок займа: ";
     cin >> n;
-    m = (S * r * pow(1 + r, n)) / (12 * (pow(1 + r, n) - 1));
-    cout << m;*/
+    p = 0.00001;
+    r = p / 100;
+    while ((S * r * pow(1 + r, n)) / (12 * (pow(1 + r, n) - 1)) < m)
+        p += 0.00001;
+    cout << p;*/
 
     // Задача 3.3 "Копирование файла"
     /*string temp;
@@ -266,7 +269,7 @@ int main() {
     }
     MyFile.close();*/
 
-    // Задаача 3.4 "Фильтр"
+    // Задача 3.4 "Фильтр"
     /*fstream MyFile;
     string temp, out, finalOut;
     int j, dotCount = 0;
@@ -281,7 +284,7 @@ int main() {
                 out += " ";
         }
         while (out[j] != '\0') { // Чистит пробелы
-            if (out[j] == ' ' & out[j + 1] == ' ') {
+            if (out[j] == ' ' && out[j + 1] == ' ') {
                 out.replace(j, 1, "");
                 j = -1;
             }
@@ -296,9 +299,9 @@ int main() {
             for (int i = 0; i != temp.length() ; ++i) {
                 if (temp[i] == '.')
                     dotCount++;
-                if (temp[i] == '.' & temp[i + 1] == '\0')
+                if (temp[i] == '.' && temp[i + 1] == '\0')
                     dotCount++;
-                if (temp[i] == '.' & temp[i - 1] == '\0')
+                if (temp[i] == '.' && temp[i - 1] == '\0')
                     dotCount++;
             }
             if (dotCount < 2) {
@@ -311,41 +314,40 @@ int main() {
     }
     MyFile.close();*/
 
-    // Задаача 3.5 "Сортировка букв"
-    string a;
+    // Задача 3.5 "Сортировка букв"
+    /*string a;
     char temp;
     cin >> a;
     a = a.substr(0, 30);
-    while (true) {
-        for (int i = 0; i < 30; ++i) {
-            if (a[i] - '0' > a[i + 1] - '0') {
+    for (int j = 1; j < 30; ++j) {
+        for (int i = 0; i < a.length(); ++i) {
+            if (a[i] - '0' > a[i + 1] - '0' && a[i + 1] != '\0') {
                 temp = a[i];
                 a[i] = a[i + 1];
                 a[i + 1] = temp;
             }
         }
-        if ()
     }
-    /*string fileName, temp;
+    cout << a;*/
+
+    // Задача 4.1 "Файл"
+    string temp;
     fstream MyFile;
-    cout << "Введите название файла: ";
-    cin >> fileName;
-    cin.ignore(256, '\n');
-    MyFile.open(fileName + ".txt", fstream::in | fstream::out | fstream::app);
+    MyFile.open("..\\234.txt", fstream::out | fstream::in | fstream::trunc);
     if (!MyFile.is_open()) {
         cout << "Ошибка открытия файла!" << endl;
     }
     else {
         cout << "Файл открыт!" << endl;
-        getline(cin, temp);
-        MyFile << temp << endl;
+        getline(cin, temp); // getline для того, чтобы учитывались пробелы
+        MyFile << temp;
     }
-    MyFile.close();
-    MyFile.open(fileName + ".txt", fstream::in);
+    cin.fail();
+    cin.clear();
     while (!MyFile.eof()) {
         getline(MyFile, temp);
         cout << temp << endl;
     }
-    MyFile.close();*/
+    MyFile.close();
     return 0;
 }
