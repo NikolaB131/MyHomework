@@ -245,7 +245,7 @@ int main() {
     else
         cout << "Введите положительные числа!";*/
 
-    // Задача 3.2 "Ссуда"
+    // Задача 3.2 "Ссуда" ДОДЕЛАТЬ
     /*double S, m, n, r, p;
     cout << "Введите сумму займа: ";
     cin >> S;
@@ -314,8 +314,8 @@ int main() {
     }
     MyFile.close();*/
 
-    // Задача 3.5 "Сортировка букв"
-    /*string a;
+    // Задача 3.5 "Сортировка букв" ПЕРЕДЕЛАТЬ(большие буквы впереди маленьких)
+    string a, aTemp;
     char temp;
     cin >> a;
     a = a.substr(0, 30);
@@ -328,12 +328,20 @@ int main() {
             }
         }
     }
-    cout << a;*/
+    for (int i = a.length() - 1; i != 0; --i) {
+        if (a[i] - '0' <= 42) {
+            aTemp = a.substr(0, i + 1);
+
+            break;
+        }
+    }
+    cout << a;
 
     // Задача 4.1 "Файл"
-    string temp;
+    /*string temp;
+    int tempOut, count = 0;
     fstream MyFile;
-    MyFile.open("..\\234.txt", fstream::out | fstream::in | fstream::trunc);
+    MyFile.open("..\\234.txt", fstream::out | fstream::trunc);
     if (!MyFile.is_open()) {
         cout << "Ошибка открытия файла!" << endl;
     }
@@ -342,12 +350,16 @@ int main() {
         getline(cin, temp); // getline для того, чтобы учитывались пробелы
         MyFile << temp;
     }
-    cin.fail();
-    cin.clear();
-    while (!MyFile.eof()) {
-        getline(MyFile, temp);
-        cout << temp << endl;
-    }
     MyFile.close();
+    MyFile.open("..\\234.txt", fstream::in);
+    getline(MyFile, temp);
+    for (int i = 0; i < temp.length(); ++i) {
+        if (isdigit(temp[i]) && count < 10) {
+            tempOut += temp[i] - '0';
+            count++;
+        }
+    }
+    cout << tempOut;
+    MyFile.close();*/
     return 0;
 }
