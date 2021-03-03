@@ -1,0 +1,925 @@
+// Задание 1.1 "Имя"
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    string name;
+    cout << "Введите ваше имя: ";
+    cin >> name;
+    cout << "Вас зовут: " << name;
+	return 0;
+}
+
+// Задание 1.2 "Арифметика"
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	float a, b;
+    cout << "Введите a: ";
+    cin >> a;
+    cout << "Введите b: ";
+    cin >> b;
+    if (cin) {
+        cout << "Сумма чисел: " << a + b;
+        cout << "\nРазность чисел: " << a - b;
+        cout << "\nПроизведение чисел: " << a * b;
+        if (b != 0) {
+            cout << "\nДеление a на b: " << a / b;
+        }
+        else
+            cout << "\nДеление a на b: Деление на ноль!";
+        if (a != 0) {
+            cout << "\nДеление b на a: " << b / a;
+        }
+        else
+            cout << "\nДеление b на a: Деление на ноль!";
+    }
+    else
+        cout << "Ошибка, введите число!";
+	return 0;
+}
+
+// Задание 1.3 "Уравнение"
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	float b, c;
+    cout << "Уравнение вида bx+c=0\nВведите b: ";
+    cin >> b;
+    cout << "Введите c: ";
+    cin >> c;
+    if (cin) {
+        if (b == 0 and c == 0) {
+            cout << "Бесконечное количество решений";
+        }
+        else if (b == 0) {
+            cout << "Нет решений";
+        }
+        else
+            if (-c / b != -0) {
+                cout << -c / b;
+            }
+            else
+                cout << "0";
+    }
+    else
+        cout << "Ошибка, введите число!";
+	return 0;
+}
+
+// Задание 1.4 "Еще уравнение"
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+	double a, b, c, D;
+    cout << "Уравнение вида ax^2+bx+c=0\nВведите a: ";
+    cin >> a;
+    cout << "Введите b: ";
+    cin >> b;
+    cout << "Введите c: ";
+    cin >> c;
+    if (cin) {
+        if (a == 0)
+        {
+            if (b == 0 and c == 0) {
+                cout << "Бесконечное количество решений";
+            }
+            else if (b == 0) {
+                cout << "Нет решений";
+            }
+            else
+            if (-c / b != -0) {
+                cout << -c / b;
+            }
+            else
+                cout << "0";
+        }
+        else
+        {
+            D = pow(b, 2) - 4 * a * c;
+            if (D > 0) {
+                cout << "x1 = " << (-b + sqrt(D)) / (a * 2);
+                cout << "\nx2 = " << (-b - sqrt(D)) / (a * 2);
+            }
+            if (D < 0) {
+                cout << "Корней нет";
+            }
+            if (a == 0 and b == 0 and c == 0) {
+                cout << "Бесконечное количество решений";
+            } else if (D == 0) {
+                cout << "x1 = x2 = " << -b / (a * 2);
+            }
+        }
+    }
+    else
+        cout << "Ошибка, введите число!";
+	return 0;
+}
+
+// Задание 1.5 "Лампа со шторой"
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+	string time, curtains, lamp;
+    cout << "Введите время стуок на улице(day или night): ";
+    cin >> time;
+    cout << "Раздвинуты ли шторы?(yes или no): ";
+    cin >> curtains;
+    cout << "Включена ли лампа?(yes или no): ";
+    cin >> lamp;
+    if (cin.fail()) {
+        if ((time == "day" and curtains == "yes") or (lamp == "yes")) {
+            cout << "В комнате светло!";
+        }
+        else
+            cout << "В комнате тьма...";
+    }
+    else
+        cout << "Ошибка, введите строку!";
+	return 0;
+}
+
+// Задача 2.1 "Конус"
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+	double R, r, h, l;
+    cout << "Введите радиус большего основания: ";
+    cin >> R;
+    cout << "Введите радуис меньшего основания: ";
+    cin >> r;
+    cout << "Введите высоту: ";
+    cin >> h;
+    if (cin) {
+        if (R > 0 && r > 0 && h > 0) {
+            cout << "Объем усеченого конуса равен: " << (M_PI * h * (pow(R,2) + R * r + pow(r,2))) / 3 << " м^3\n";
+            l = sqrt(pow(h,2) + pow(R - r,2));
+            cout << "Полная площадь поверхности конуса равна: " << M_PI * (pow(R,2) + l * (R + r) + pow(r,2)) << "м^2";
+        }
+        else
+            cout << "Введите числа большие нуля!";
+    }
+    else
+        cout << "\nОшибка, введите число!";
+	return 0;
+}
+
+// Задача 2.2 "Разветвление"
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+	double x, a;
+    cout << "Введите x: ";
+    cin >> x;
+    cout << "Введите a: ";
+    cin >> a;
+    if (cin) {
+        if (abs(x) > 0 && abs(x) < 1.0) {
+            cout << "w = " << a * log(abs(x));
+        }
+        else if (abs(x) >= 1 && sqrt(a - pow(x,2)) >= 0) {
+            cout << "w = " << sqrt(a - pow(x,2));
+        }
+        else
+            cout << "Ошибка, подлогарифмическое выражение меньше или равно нулю!";
+    }
+    else
+        cout << "\nОшибка, введите число!";
+	return 0;
+}
+
+// Задача 2.3 "Функция"
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+	double x, y, b;
+    cout << "Введите x: ";
+    cin >> x;
+    cout << "Введите y: ";
+    cin >> y;
+    cout << "Введите b: ";
+    cin >> b;
+    if (cin) {
+        if (b - y > 0 && b - x >= 0) {
+            cout << "z = " << log(b - y) * sqrt(b - x);
+        }
+        else
+            cout << "Ошибка, подлогарифмическое выражение меньше или равно 0 или значение под корнем меньше 0!";
+    }
+    else
+        cout << "\nОшибка, введите число!";
+	return 0;
+}
+
+// Задача 2.4 "Порядок"
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+	float N;
+    cout << "Ведите N: ";
+    cin >> N;
+    if (cin) {
+        if (N >= 0) {
+            for (int i = int(floor(N) + 1); i != int(floor(N)) + 11; i += 1) {
+                cout << i << " ";
+            }
+        }
+        else if (N < 0 and N + 9 >= 0) { // Второе условие - проверка выхода за диапазон
+            for (int i = int(floor(N)) + 1; i != int(floor(N)) + 11; i += 1) {
+                if (i > 0) {
+                    cout << i << " ";
+                }
+            }
+        }
+        else
+            cout << "Последовательности для данного числа N не существует";
+    }
+    else
+        cout << "Ошибка, введите число!";
+	return 0;
+}
+
+// Задача 2.5 "Табуляция"
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+
+using namespace std;
+
+int main() {
+	float x = -4;
+    cout << "╔===================╗\n║    X    ║    Y    ║\n║=========║=========║\n";
+    for (int i = 0; i != 17; ++i) {
+        if (x <= 4) {
+            double y = (pow(x, 2) - 2 * x + 2) / (x - 1);
+            if (x != 1) {
+                cout << "║" << setw(7) << setprecision(2) << fixed << x
+                     << "  ║" << setw(7) << setprecision(2) << fixed << y << "  ║\n";
+            }
+            else
+                cout << "║   1.00  ║   /0    ║\n";
+            x += 0.5;
+        }
+    }
+    cout << "╚===================╝";
+	return 0;
+}
+
+// Задача 3.1 "Заем"
+#include <iostream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+	double S, n, p, r, total;
+    cout << "Введите сумму займа: ";
+    cin >> S;
+    cout << "Введите срок займа: ";
+    cin >> n;
+    cout << "Введите процент займа: ";
+    cin >> p;
+    r = p / 100;
+    if (S > 0 && n > 0) {
+        if (p != 0) {
+            total = (S * r * pow(1 + r, n)) / (12 * (pow(1 + r, n) - 1));
+        }
+        else
+            total = S / (12 * n);
+        cout << "Месячная выплата составит: " << to_string(total).substr(0, to_string(total).find('.')) <<
+        " рублей " << to_string(round(total * 100) / 100).substr(to_string(round(total * 100) / 100).find('.') + 1, 2) << " копеек";
+    }
+    else
+        cout << "Введите положительные числа!";
+	return 0;
+}
+
+// Задача 3.2 "Ссуда"
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+	double S, m, n, p;
+    cout << "Введите сумму займа: ";
+    cin >> S;
+    cout << "Введите сумму месячной выплаты: ";
+    cin >> m;
+    cout << "Введите срок займа: ";
+    cin >> n;
+    p = 0.000001;
+    if (S / m == n * 12) // обработка случая с нулевыми процентами
+        cout << "0%";
+    else {
+        if ((p / 100 * S * pow(1 + p / 100, n)) / (12 * (pow(1 + p / 100, n) - 1)) > m) // Проверка на неверное условие(то есть когда банк отдает деньги, а не клиент)
+            cout << "Ошибка, неверное условие!";
+        else {
+            while ((p / 100 * S * pow(1 + p / 100, n)) / (12 * (pow(1 + p / 100, n) - 1)) <=
+                   m) // цикл подбора значений p, через формулу месячной выплаты
+                p += 0.000001; // шаг подбора 0.000001
+            cout << p << "%";
+        }
+    }
+	return 0;
+}
+
+// Задача 3.3 "Копирование файла"
+#include <iostream>
+#include <string>
+#include <fstream>
+
+using namespace std;
+
+int main() {
+	string temp;
+    fstream MyFile;
+    MyFile.open("123.txt");
+    while(!MyFile.eof()) {
+        getline(MyFile, temp);
+        cout << temp << endl;
+    }
+    MyFile.close();
+	return 0;
+}
+
+// Задача 3.4 "Фильтр"
+#include <iostream>
+#include <string>
+#include <fstream>
+
+using namespace std;
+
+int main() {
+	fstream MyFile;
+    string temp, out, finalOut;
+    int j, dotCount = 0;
+    MyFile.open("..\\123.txt");
+    while(!MyFile.eof()) {
+        getline(MyFile, temp);
+        for (int i = 0; i != temp.length(); ++i) { // Отсеивает числа и точки
+            if (isdigit(temp[i]) || temp[i] == '.') {
+                out += temp[i];
+            }
+            else
+                out += " ";
+        }
+        while (out[j] != '\0') { // Чистит пробелы
+            if (out[j] == ' ' && out[j + 1] == ' ') {
+                out.replace(j, 1, "");
+                j = -1;
+            }
+            j++;
+        }
+        j = 0;
+        if (out[0] == ' ') // Убирает пробел в начале
+            out.replace(0, 1, "");
+        while (!out.empty()) { // Отсеивает неправильные числа с плавающей точкой
+            temp = out.substr(0, out.find(' ')); // строка до пробела
+            out = out.substr(temp.length() + 1); // Обрезает строку от temp до след. пробела
+            for (int i = 0; i != temp.length() ; ++i) {
+                if (temp[i] == '.')
+                    dotCount++;
+                if (temp[i] == '.' && temp[i + 1] == '\0')
+                    dotCount++;
+                if (temp[i] == '.' && temp[i - 1] == '\0')
+                    dotCount++;
+            }
+            if (dotCount < 2) {
+                finalOut += temp + " ";
+            }
+            dotCount = 0;
+        }
+        cout << finalOut << endl;
+        finalOut = "";
+    }
+    MyFile.close();
+	return 0;
+}
+
+// Задача 3.5 "Сортировка букв"
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    string a;
+    char temp;
+    bool is_upper = false, is_upperNext = false;
+    cin >> a;
+    a = a.substr(0, 30);
+    for (int j = 1; j < 30; ++j) { // необходимо 30 проходов для успешной сортировки
+        for (int i = 0; i < a.length(); ++i) { // Сортировка пузырьком
+            if (isupper(a[i])) { // конвертация буквы из верхнего регистра в нижний для сравнения
+                is_upper = true;
+                a[i] = tolower(a[i]);
+            }
+            if (isupper(a[i + 1])) { // конвертация следующей буквы из верхнего регистра в нижний для сравнения
+                is_upperNext = true;
+                a[i + 1] = tolower(a[i + 1]);
+            }
+            if (a[i] - '0' > a[i + 1] - '0' && a[i + 1] != '\0') { // если буква и следующая за ней не в алфавитном порядке
+                temp = a[i];
+                a[i] = a[i + 1];
+                a[i + 1] = temp;
+                if (is_upper) { // возвращение буквы к её регистру
+                    a[i + 1] = toupper(a[i + 1]); // i + 1 вместо i т.к. они уже поменяны местами
+                    is_upper = false;
+                }
+                if (is_upperNext) { // возвращение слующей буквы к её регистру
+                    a[i] = toupper(a[i]); // i вместо i + 1 т.к. они уже поменяны местами
+                    is_upperNext = false;
+                }
+            }
+            else { // Если соседние буквы уже стоят в алфавитном порядке
+                if (is_upper) {
+                    a[i] = toupper(a[i]); // Привести букву в её начальный регистр
+                    is_upper = false;
+                }
+                if (is_upperNext) {
+                    a[i + 1] = toupper(a[i + 1]); // Привести следующюю букву в её начальный регистр
+                    is_upperNext = false;
+                }
+            }
+        }
+    }
+    cout << a;
+    return 0;
+}
+
+// Задача 4.1 "Файл"
+#include <iostream>
+#include <string>
+#include <fstream>
+
+using namespace std;
+
+int main() {
+	string temp;
+    int tempOut, count = 0;
+    fstream MyFile;
+    MyFile.open("..\\234.txt", fstream::out | fstream::trunc);
+    if (!MyFile.is_open()) {
+        cout << "Ошибка открытия файла!" << endl;
+    }
+    else {
+        cout << "Файл открыт!" << endl;
+        getline(cin, temp); // getline для того, чтобы учитывались пробелы
+        MyFile << temp;
+    }
+    MyFile.close();
+    MyFile.open("..\\234.txt", fstream::in);
+    getline(MyFile, temp);
+    for (int i = 0; i < temp.length(); ++i) {
+        if (isdigit(temp[i]) && count < 10) {
+            tempOut += temp[i] - '0';
+            count++;
+        }
+    }
+    cout << tempOut;
+    MyFile.close();
+	return 0;
+}
+
+// Задача 4.2 "Знак числа"
+#include <iostream>
+
+using namespace std;
+
+int sign_x(int a) {
+    if (a > 0)      // Условие если число положительное
+        return 1;   // Возвращаемое значние
+    else if (a < 0) // Условие если число отрицательное
+        return -1;  // Возвращаемое значние
+    else            // Условие если число равно нулю
+        return 0;   // Возвращаемое значние
+}
+
+int main() {
+	int x;
+    cout << "Введите число: ";
+    cin >> x;
+    cout << sign_x(x); // Вызов и получение значения от функции
+	return 0;
+}
+
+// Задача 4.3 "Геометрические фигуры"
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+double rectangle(double a, double b) { // Функция для вычисления площади прямоугольника
+    return a * b;
+}
+double triangle(double b, double h) { // Функция для вычисления площади треугольника
+    return b * h / 2;
+}
+double circle(double R) { // Функция для вычисления площади круга
+    return M_PI * pow(R, 2);
+}
+
+int main() {
+	int selection;
+    double a, b;
+    cout << "Площадь чего требуется вычислить?\n" << "1 - прямоугольник\n" << "2 - треугольник\n" << "3 - круг\n" << "Введите число(от 1 до 3): ";
+    cin >> selection;
+    switch (selection) { // в зависсимости от выбора пользователя зависят вызовы функций
+        case 1:
+            cout << "Введите первую сторону: ";
+            cin >> a;
+            cout << "Введите вторую сторону: ";
+            cin >> b;
+            if (a > 0 && b > 0) // Проверка на корректность введенных данных
+                cout << rectangle(a, b); // Вызов функции для вычисления площади прямоугольника
+            else
+                cout << "Ошибка!";
+            break;
+        case 2:
+            cout << "Введите сторону: ";
+            cin >> a;
+            cout << "Введите высоту: ";
+            cin >> b;
+            if (a > 0 && b > 0) // Проверка на корректность введенных данных
+                cout << triangle(a, b); // Вызов функции для вычисления площади треугольника
+            else
+                cout << "Ошибка!";
+            break;
+        case 3:
+            cout << "Введите радиус: ";
+            cin >> a;
+            if (a > 0) // Проверка на корректность введенных данных
+                cout << circle(a); // Вызов функции для вычисления площади круга
+            else
+                cout << "Ошибка!";
+            break;
+        default: // Если введенное значение отличалось от 1, 2, 3
+            cout << "Ошибка!";
+    }
+	return 0;
+}
+
+// Задача 4.4 "Былая слава"
+#include <iostream>
+	
+using namespace std;
+
+int main() {
+	for (int i = 0; i < 6; i++) // 6 строк
+    {
+        for (int j = 0; j < 8; j++) // 8 раз, т.к. 8 столбцов
+            cout << "* ";
+        cout << "============================\n";
+    }
+    for (int i = 0; i < 7; i++) // И еще 7 строк
+        cout << "============================================\n";
+	return 0;
+}
+
+// Задача 4.5 "Синусоида" (запускать на VS)
+#include <iostream>
+#include <Windows.h>
+
+void main() {
+	float x;
+	HDC hDC = GetDC(GetConsoleWindow()); // Обьект, выбирающий место для рисования(консоль)
+	HPEN Pen = CreatePen(PS_SOLID, 1, RGB(255, 255, 255)); // Обьект, выбирающий средство рисования(ручка)
+	SelectObject(hDC, Pen);
+	MoveToEx(hDC, 0, 100, NULL); // Передвинуть курсор на y(-100)
+	LineTo(hDC, 200, 100); // Нарисовать 200 пикселей вправо на y(-100)
+	MoveToEx(hDC, 100, 0, NULL); // Передвинуть курсор на x(100)
+	LineTo(hDC, 100, 200); // Нарисовать 200 пикселей вниз на x(100)
+	Pen = CreatePen(PS_SOLID, 2, RGB(0, 200, 0)); // толщина 2 пикселя, цвет зеленый
+	SelectObject(hDC, Pen);
+	for (x = -20.0; x <= 20.0; x += 0.001) {  // шаг 0.001
+		MoveToEx(hDC, 5 * x + 100, -20 * sin(x) + 100, NULL); // высота = 20, ширина 5
+		LineTo(hDC, 5 * x + 100, -20 * sin(x) + 100);
+	}
+}
+
+// Задача 4.6 "Автоматный распознаватель"
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    string pre_number;
+    int skip = 0, j = 0, result = 0;
+    bool error = false;
+    cout << "Введите римское число: ";
+    cin >> pre_number;
+    int number[pre_number.length()]; // массив для конвертации строки в числа
+    for (int i = 0; i < pre_number.length(); ++i) {
+        if (skip == 0) {
+            if (pre_number[i] == 'I') {
+                number[j] = 1;
+                if (pre_number[i + 1] == 'I') { // если 2 I подрад
+                    number[j] = 2;
+                    skip = 1; // пропуск одного символа чтобы не было повторений в массиве number
+                    if (pre_number[i + 2] == 'I') { // если 3 I подрад
+                        number[j] = 3;
+                        skip = 2; // пропуск двух символов чтобы не было повторений в массиве number
+                        if (pre_number[i + 3] == 'I') { // если 4 I подряд (противоречит правилам)
+                            error = true;
+                            break;
+                        }
+                    }
+                }
+                j++; // переход в следующий элемент массива для записи
+            }
+            else if (pre_number[i] == 'V') {
+                number[j++] = 5; // присваивание и переход в следующий элемент массива для записи
+                if (pre_number[i + 1] == 'V') {
+                    error = true;
+                    break;
+                }
+            }
+            else if (pre_number[i] == 'X') {
+                number[j] = 10;
+                if (pre_number[i + 1] == 'X') { // если 2 X подрад
+                    number[j] = 20;
+                    skip = 1; // пропуск одного символа чтобы не было повторений в массиве number
+                    if (pre_number[i + 2] == 'X') { // если 3 X подрад
+                        number[j] = 30;
+                        skip = 2; // пропуск двух символов чтобы не было повторений в массиве number
+                        if (pre_number[i + 3] == 'X') { // если 4 X подряд (противоречит правилам)
+                            error = true;
+                            break;
+                        }
+                    }
+                }
+                j++; // переход в следующий элемент массива для записи
+            }
+            else if (pre_number[i] == 'L') {
+                number[j++] = 50; // присваивание и переход в следующий элемент массива для записи
+                if (pre_number[i + 1] == 'L') {
+                    error = true;
+                    break;
+                }
+            }
+            else if (pre_number[i] == 'C') {
+                number[j] = 100;
+                if (pre_number[i + 1] == 'C') { // если 2 C подрад
+                    number[j] = 200;
+                    skip = 1; // пропуск одного символа чтобы не было повторений в массиве number
+                    if (pre_number[i + 2] == 'C') { // если 3 C подрад
+                        number[j] = 300;
+                        skip = 2; // пропуск двух символов чтобы не было повторений в массиве number
+                        if (pre_number[i + 3] == 'C') { // если 4 C подряд (противоречит правилам)
+                            error = true;
+                            break;
+                        }
+                    }
+                }
+                j++; // переход в следующий элемент массива для записи
+            }
+            else if (pre_number[i] == 'D') {
+                number[j++] = 500; // присваивание переход в следующий элемент массива для записи
+                if (pre_number[i + 1] == 'D') {
+                    error = true;
+                    break;
+                }
+            }
+            else if (pre_number[i] == 'M') {
+                number[j] = 1000;
+                if (pre_number[i + 1] == 'M') { // если 2 M подрад
+                    number[j] = 2000;
+                    skip = 1; // пропуск одного символа чтобы не было повторений в массиве number
+                    if (pre_number[i + 2] == 'M') { // если 3 M подрад
+                        number[j] = 3000;
+                        skip = 2; // пропуск двух символов чтобы не было повторений в массиве number
+                        if (pre_number[i + 3] == 'M') { // если 4 M подряд(противоречит правилам)
+                            error = true;
+                            break;
+                        }
+                    }
+                }
+                j++; // переход в следующий элемент массива для записи
+            }
+            else // в случае ввода чисел не из римской СС
+                error = true;
+        }
+        else
+            skip--; // непосредственно пропуск шагов i
+    }
+    int number_new[j], k = 0, number_last = 3001; // 3001 т.к. самое большое число из одних букв равно 3000(MMM), новый массив для сложения чисел после вычитания
+    for (int i = 0; i < j; ++i) // делаем массив нулей для удобного сложения конечного результата
+        number_new[i] = 0;
+    for (int i = 0; i < j; ++i) { // обработка римского числа
+        if (number[i] < number[i + 1] && number[i] != 0 && i != j - 1) { // если число меньше следующего
+            if (number[i] == 1 || number[i] == 10 || number[i] == 100) { // если не нарушаются правила римской СС
+                number_new[k++] = number[i + 1] - number[i]; // запись обработаного числа в новый массив
+                number[i + 1] = 0; // обнуление следующего числа, чтобы проскочить (т.к. оно уже вычислено)
+                number_last = number[i]; // запись меньшего числа в паре для того, чтобы проверить следующее число на правильность
+            }
+            else { // нарушение правил СС, слева от большего числа стоит два и более меньших (допустимо одно)
+                error = true;
+                break;
+            }
+        }
+        else if (number[i] < number_last && number[i] != 0) { // проверка на одно из правил (меньшее число в паре не должно быть больше или равно следующему за парой числу)
+            number_new[k++] = number[i]; // присваивание и переход в следующий элемент массива для записи
+            number_last = 3001; // возвращение значения в исходное состояние
+        }
+        else if (number[i] != 0) { // если меньшее число в паре больше или равно следующему за парой числу
+            error = true;
+            break;
+        }
+    }
+    if (error)
+        cout << "Ошибка ввода!";
+    else {
+        for (int i = 0; i < k; ++i)
+            result += number_new[i];
+        cout << result;
+    }
+    return 0;
+}
+
+// Задача 4.7 "Генератор случайных чисел"
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    srand(time(nullptr)); // установка точки начала отсчета для функции rand()
+    int S = rand(); // присваивание рандомного значения к S
+    int option, m, i, c;
+    cout << "Выберите вариант(1 или 2): ";
+    cin >> option;
+    switch (option) {
+        case 1: // вариант 1
+            m = 37;
+            i = 3;
+            c = 64;
+            break;
+        case 2: // вариант 2
+            m = 25173;
+            i = 13849;
+            c = 65537;
+            break;
+        default:
+            cout << "Ошибка ввода!";
+    }
+    for (int j = 0; j <= i; ++j) // отсчет от S нулевого
+        S = (m * S + j) % c; // следующее S = (m * пердыдующее S + j) % c
+    cout << "Псевдослучайное число: " << S;
+    return 0;
+}
+
+// Задача 4.8 "Умножение матриц"
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	double A[3][4] = { // 3 продавца, 4 товара
+            {5, 2, 0, 10},
+            {3, 5, 2, 5},
+            {20, 0, 0, 0}
+    };
+    double B[4][2] = { // цена за каждый товар и его комиссионные
+            {1.20, 0.50},
+            {2.80, 0.40},
+            {5.00, 1.00},
+            {2.00, 1.50}
+    };
+    double C[3][2]; // Массив для записи умножения A на B
+    for (int i = 0; i < 3; ++i) { // повторяется 3 раза, т.к. в массиве A три строки
+        for (int j = 0; j < 2; ++j) { // 2 раза т.к. в массиве B 2 столбца
+            C[i][j] = A[i][0] * B[0][j] + A[i][1] * B[1][j] + A[i][2] * B[2][j] + A[i][3] * B[3][j]; // Умножение по правилам умножения матриц
+
+        }
+    }
+    double MaxNumber = 0; // сравниваем с нулем для поиска наибольшего значения
+    double MinNumber = 100000000000; // сравниваем с очень большым числом для поиска наименьшего значения
+    double MaxOut, MinOut = 0; // Переменные для итогового вывода
+    for (int i = 0; i < 3; ++i) {
+        if (C[i][0] > MaxNumber) { // Поиск наибольшей выручки
+            MaxNumber = C[i][0];
+            MaxOut = i + 1;
+        }
+        if (C[i][0] < MinNumber) { // Поиск наименьшей выручки
+            MinNumber = C[i][0];
+            MinOut = i + 1;
+        }
+    }
+    cout << "1. Больше всего денег с продаж получил " << MaxOut << " продавец.\n";
+    cout << "   Меньше всего денег с продаж получил " << MinOut << " продавец.\n";
+    MaxNumber = 0; // Обнуление переменных
+    MinNumber = 100000000000;
+    for (int i = 0; i < 3; ++i) {
+        if (C[i][1] > MaxNumber) { // Поиск наибольших комиссионных
+            MaxNumber = C[i][1];
+            MaxOut = i + 1;
+        }
+        if (C[i][1] < MinNumber) { // Поиск наименьших комиссионных
+            MinNumber = C[i][1];
+            MinOut = i + 1;
+        }
+    }
+    cout << "2. Наибольшие комиссионные получил " << MaxOut << " продавец.\n";
+    cout << "   Наименьшие комиссионные получил " << MinOut << " продавец.\n";
+    cout << "3. Общая сумма вырученных денег: " << C[0][0] + C[1][0] + C[2][0] << endl; // 1 столбец массива C
+    cout << "4. Общая сумма полученных комиссионных: " << C[0][1] + C[1][1] + C[2][1] << endl; // 2 столбец массива C
+    cout << "5. Сумма всех денег, прошедших через руки продавцов: " << C[0][0] + C[1][0] + C[2][0] + C[0][1] + C[1][1] + C[2][1]; // 1+2 столбец массива C
+	return 0;
+}
+
+// Задача 4.9 "Системы счисления"
+#include <iostream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+	string pre_number, pre_result, result;
+    int oldNotation, newNotation;
+    int max, decimal = 0;
+    bool error = false;
+    cout << "Введите число: ";
+    cin >> pre_number;
+    cout << "Введите исходную систему счисления(2-16): ";
+    cin >> oldNotation;
+    cout << "Введите новую систему счисления(2-16): ";
+    cin >> newNotation;
+    int number[pre_number.length()]; // объявление массива для удобной работы с числом
+    for (int i = 0; i < pre_number.length(); ++i) { // конвертация строки в целые числа
+        if (pre_number[i] == '0' || pre_number[i] == '1' || pre_number[i] == '2' || pre_number[i] == '3' ||
+            pre_number[i] == '4' || pre_number[i] == '5' || pre_number[i] == '6' || pre_number[i] == '7' ||
+            pre_number[i] == '8' || pre_number[i] == '9')
+            number[i] = pre_number[i] - '0'; // конвертация char в int (UTF-8)
+        else if (pre_number[i] == 'A' || pre_number[i] == 'B' || pre_number[i] == 'C' ||
+                 pre_number[i] == 'D' || pre_number[i] == 'E' || pre_number[i] == 'F')
+            number[i] = pre_number[i] - '7'; // конвертация char в int, вычитается 7 т.к. 7 в UTF-8 это dec:55, а буква 'A' - dec:65
+        else { // проверка на корректность введенного числа
+            error = true;
+            break;
+        }
+    }
+    for (int i = 0; i < pre_number.length(); ++i) // нахождение наибольшего числа из массива(для проверки СС)
+        if (number[i] > max)
+            max = number[i];
+    // проверка на то, не превышает ли число в массиве нашу СС, не ввел ли пользователь нули, и на диапазон СС
+    if (max >= oldNotation || max == 0 || oldNotation > 16 || newNotation < 2 || newNotation > 16)
+        error = true;
+    if (error) // проверка на наличие ошибок
+        cout << "Ошибка ввода!";
+    else {
+        if (oldNotation == newNotation) // Если основания совпадают - расчетов не требуется
+            result = pre_number;
+        else { // если основания не совпадают
+            for (int i = pre_number.length(); i > 0; --i) // перевод из любой СС в десятичную СС
+                decimal += int(number[pre_number.length() - i] * pow(oldNotation, i - 1));
+            if (newNotation != 10) { // если новая СС - десятичная, то дальнейшие расчеты не требуются
+                while (decimal / newNotation >= 1) { // конвертация в новую СС
+                    if (decimal % newNotation > 9) // если в строке существуют буквенные числа
+                        pre_result += char(decimal % newNotation) + '7'; // обратная конвератция
+                    else
+                        pre_result += to_string(decimal % newNotation); // если в троке нету буквенных чисел
+                    decimal /= newNotation;
+                }
+                // преобразование последнего числа
+                if (decimal > 9) // если последнее число - буква
+                    pre_result += char(decimal) + '7'; // обратная конвертация последнего числа
+                else
+                    pre_result += to_string(decimal);
+                for (int i = int(pre_result.length()) - 1; i >= 0; --i) // переворот строки
+                    result += pre_result[i];
+            }
+            else // если новая СС - десятичная
+                result = to_string(decimal); // запись десятичного значения в результат
+        }
+        cout << "Результат: " << result;
+    }
+	return 0;
+}
