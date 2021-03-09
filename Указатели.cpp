@@ -3,8 +3,8 @@
 using namespace std;
 
 int main() {
-    const int ci = 1;
-    const int *const cpc = &ci;
-    cout << cpc << endl << *cpc;
+    int a = 5;
+    int *pa = &a;
+    cout << pa << "\t" << &a;
     return 0;
 }

@@ -1,34 +1,30 @@
 #include <iostream>
 using namespace std;
 
-void delFirstMethod(int *x[], int n, int key) {
-    int i = 1;
-    while (i <= n) {
-        if (*x[i] == key) {
-            cout << "del";
-            for (int j = 0; j < n - 1; ++j)
-                x[j] = x[j + 1];
-            break;
-            n--;
-        }
-        else
-            i++;
-    }
+void Foo(int *pb) {
+    *pb++;
 }
 
 int main() {
-    int n, key;
-    cout << "Введите количество элементов исходного  массива: ";
-    cin >> n;
-    int *x = new int[n];
-    srand(time(nullptr));
-    cout << "Введите удалемый элемент: ";
-    cin >> key;
-    for (int i = 0; i < n; ++i)
-        x[i] = rand() % 10;
-    cout << "Исходный массив:" << endl;
-    for (int i = 0; i < n; ++i)
-        cout << x[i] << endl;
-    delFirstMethod(x, n, key);
+    int a = 5;
+    int *pa = &a; // запись адресаа памяти a в указатель pa
+    cout << a << "\t" << pa << endl;
+    *pa = 10;
+    cout << a << "\t" << pa << endl << endl;
+
+    int arr[5] {1, 5, 2, 7, 9};
+    for (int i = 0; i < 5; ++i)
+        cout << &arr[i] << "\t" << arr[i] << endl;
+    cout << endl << arr << endl; // адрес первого элемента массива (имя массива есть указатель на его первый эелемент)
+
+    for (int i = 0; i < 5; ++i)
+        cout << arr[i] << " ";
+    // это тоже самое что и
+    cout << "\t";
+    for (int i = 0; i < 5; ++i)
+        cout << *(arr + i) << " ";
+    cout << endl;
+
+    int b
     return 0;
 }
