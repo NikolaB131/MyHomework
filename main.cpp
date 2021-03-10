@@ -12,6 +12,10 @@ void foo2(int *a, int *b) { // меняет переменные метами с
     *b = temp;
 }
 
+void refs(int &a) { // передаем ссылку на значение в тело функции (ссылка ссылается на ссылку, а та ссылается на aa)
+    a++;
+}
+
 int main() {
     int a = 5;
     int *pa = &a; // запись адресаа памяти a в указатель pa
@@ -39,10 +43,13 @@ int main() {
     int a1 = 5;
     int b1 = 2;
     foo2(&a1, &b1);
-    cout << a1 << endl << b1;
+    cout << a1 << endl << b1 << endl << endl;
 
     // Ссылки
     int aa = 7;
     int &aaRef = aa;
+    cout << aaRef << endl;
+    refs(aaRef); // т.к. ссылка передает значение мы можем передать ссылку в функцию
+    cout << aa << endl;
     return 0;
 }
