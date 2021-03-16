@@ -1,55 +1,42 @@
 #include <iostream>
 using namespace std;
 
-void foo(int *pb, int *pc) { // указатель - это адрес, в функцию передается адрес
-    (*pb)++; // идет работа уже не с копией b, а непосредственно с нею самой, т.к. мы передали её адрес
-    *pc = 89;
+void delFirstMethod(int *x, int *n, int key) {
+    int i = 1;
+    while (i <= *n) {
+        if (x[i] == key) {
+            for (int j = i; j <= *n - 1; j++) // удаление
+                x[j] = x[j + 1];
+            (*n)--;
+        }
+        else
+            i++;
+    }
 }
 
-void foo2(int *a, int *b) { // меняет переменные метами с помощтю указателей
-    int temp = *a;
-    *a = *b;
-    *b = temp;
+void fillArray(int *x, int n) {
+    srand(time(nullptr));
+    for (int i = 0; i < n; ++i)
+        x[i] = rand() % 10;
 }
 
-void refs(int &a) { // передаем ссылку на значение в тело функции (ссылка ссылается на ссылку, а та ссылается на aa)
-    a++;
+void printArray(int *x, int n) {
+    for (int i = 0; i < n; ++i)
+        cout << x[i] << endl;
 }
 
 int main() {
-    int a = 5;
-    int *pa = &a; // запись адресаа памяти a в указатель pa
-    cout << a << "\t" << pa << endl;
-    *pa = 10;
-    cout << a << "\t" << pa << endl << endl;
-
-    int arr[5] {1, 5, 2, 7, 9};
-    for (int i = 0; i < 5; ++i)
-        cout << &arr[i] << "\t" << arr[i] << endl;
-    cout << endl << arr << endl; // адрес первого элемента массива (имя массива есть указатель на его первый эелемент)
-
-    for (int i = 0; i < 5; ++i)
-        cout << arr[i] << " ";
-    // это тоже самое что и
-    cout << "\t";
-    for (int i = 0; i < 5; ++i)
-        cout << *(arr + i) << " ";
-    cout << endl << endl;
-
-    int b = 0, c = 0;
-    foo(&b, &c); // &, т.к. нужно передать адрес в функцию
-    cout << b << endl << c << endl;
-
-    int a1 = 5;
-    int b1 = 2;
-    foo2(&a1, &b1);
-    cout << a1 << endl << b1 << endl << endl;
-
-    // Ссылки
-    int aa = 7;
-    int &aaRef = aa;
-    cout << aaRef << endl;
-    refs(aaRef); // т.к. ссылка передает значение мы можем передать ссылку в функцию
-    cout << aa << endl;
+    int n, key;
+    cout << "Введите количество элементов исходного  массива: ";
+    cin >> n;
+    int *x = new int[n];
+    fillArray(x, n);
+    cout << "Исходный массив:" << endl;
+    printArray(x, n);
+    cout << "Введите удалемый элемент: ";
+    cin >> key;
+    delFirstMethod(x, &n, key);
+    cout << "Преобразованный массив:" << endl;
+    printArray(x, n);
     return 0;
 }
