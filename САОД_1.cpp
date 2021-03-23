@@ -1,7 +1,10 @@
 #include <iostream>
+#include <ctime>
 using namespace std;
 
+double time_spent;
 void delFirstMethod(int *x, int *n, int key) {
+    clock_t begin = clock();
     int i = 0;
     while (i <= *n) {
         if (x[i] == key) {
@@ -12,6 +15,8 @@ void delFirstMethod(int *x, int *n, int key) {
         else
             i++;
     }
+    clock_t end = clock();
+    time_spent = ((double)(end - begin)) / CLOCKS_PER_SEC;
 }
 
 void delOtherMethod(int *x, int *n, int key) {
@@ -41,8 +46,8 @@ int main() {
         cout << "Выберите задание (1 или 2): ";
         cin >> task;
     } while (task != 1 && task != 2);
-    if (task == 1) {
-        // Задание 1
+
+    if (task == 1) { // Задание 1
         int n, key, choice;
         cout << "Введите количество элементов исходного  массива: ";
         cin >> n;
@@ -56,15 +61,17 @@ int main() {
             cout << "Выберите метод удаления элементов(1 или 2): ";
             cin >> choice;
         } while (choice != 1 && choice != 2);
-        if (choice == 1)
+
+        if (choice == 1) {
             delFirstMethod(x, &n, key);
+        }
         else
             delOtherMethod(x, &n, key);
         cout << "Преобразованный массив:";
         printArray(x, n);
+        cout << endl << "Затраченное время: " << time_spent;
     }
-    else {
-        // Задание 2
+    else { // Задание 2
         bool check = true;
         string result;
         const int n = 4;
