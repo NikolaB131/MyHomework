@@ -1,105 +1,101 @@
 #include <iostream>
-#include <ctime>
+#include <string>
 using namespace std;
 
-double time_spent;
-void delFirstMethod(int *x, int *n, int key) {
-    clock_t begin = clock();
-    int i = 0;
-    while (i <= *n) {
-        if (x[i] == key) {
-            for (int j = i; j < *n - 1; j++) // удаление
-                x[j] = x[j + 1];
-            (*n)--;
-        }
-        else
-            i++;
+class Human {
+public:
+    string GetName() {
+        return name;
+    };
+    void SetName(string name) {
+        this->name = name; // this - это адрес обьекта, по нему можно обращатся ко всем полям и методам класса
+        // использование -> вместо . необходимо, т.к. this - это указатель
     }
-    clock_t end = clock();
-    time_spent = ((double)(end - begin)) / CLOCKS_PER_SEC;
-}
-
-void delOtherMethod(int *x, int *n, int key) {
-    int j = 0;
-    for (int i = 0; i < *n; i++) {
-        x[j] = x[i];
-        if (x[i] != key)
-            j++;
+private:
+    string name;
+};
+class Student : public Human{
+public:
+    string group;
+    void Learn() {
+        cout << "Я учусь!\n";
     }
-    *n = j;
-}
+};
+class ExtramuralStudent : public Student {
+public:
+    void Learn() {
+        cout << "Я учусь меньше обычного студента\n";
+    }
+};
 
-void fillArray(int *x, int n) {
-    srand(time(nullptr));
-    for (int i = 0; i < n; ++i)
-        x[i] = rand() % 10;
-}
 
-void printArray(int *x, int n) {
-    for (int i = 0; i < n; ++i)
-        cout << " " << x[i];
-}
+class A {
+public:
+    A() {
+        cout << "Конструктор класса A\n";
+    }
+    ~A() {
+        cout << "Деструктор класса A\n";
+    }
+};
+class B  : public A{
+public:
+    B() {
+        cout << "Конструктор класса B\n";
+    }
+    ~B() {
+        cout << "Деструктор класса B\n";
+    }
+};
+class C : public B{
+public:
+    C() {
+        cout << "Конструктор класса C\n";
+    }
+    ~C() {
+        cout << "Деструктор класса C\n";
+    }
+};
+
+
+class A1 {
+public:
+    A1() {
+        msg = "Пустое сообщение";
+    }
+    A1(string msg) {
+        this->msg = msg; // this - это адрес обьекта, по нему можно обращатся ко всем полям и методам класса
+    }
+    void PrintMsg() {
+        cout << msg << endl;
+    }
+private:
+    string msg;
+};
+class B1 : public A1 {
+public:
+    B1() {} // ссылаетя на конструтор по умолчанию класса A1
+    B1(string msg):A1(msg) {} // указываем какой конкретно конструктор необходимо вызвать, и передает туда значение msg
+};
 
 int main() {
-    int task;
-    do {
-        cout << "Выберите задание (1 или 2): ";
-        cin >> task;
-    } while (task != 1 && task != 2);
+    Student student1;
+    student1.SetName("Макар");
+    cout << student1.GetName() << endl;
+    student1.Learn();
+    ExtramuralStudent student2;
+    student2.SetName("Кекс");
+    cout << student2.GetName() << endl;
+    student2.Learn();
+    cout << endl;
 
-    if (task == 1) { // Задание 1
-        int n, key, choice;
-        cout << "Введите количество элементов исходного  массива: ";
-        cin >> n;
-        int *x = new int[n];
-        fillArray(x, n);
-        cout << "Исходный массив:";
-        printArray(x, n);
-        cout << "\nВведите удалемый элемент: ";
-        cin >> key;
-        do {
-            cout << "Выберите метод удаления элементов(1 или 2): ";
-            cin >> choice;
-        } while (choice != 1 && choice != 2);
+    C c;
+    cout << endl;
 
-        if (choice == 1) {
-            delFirstMethod(x, &n, key);
-        }
-        else
-            delOtherMethod(x, &n, key);
-        cout << "Преобразованный массив:";
-        printArray(x, n);
-        cout << endl << "Затраченное время: " << time_spent;
-    }
-    else { // Задание 2
-        bool check = true;
-        string result;
-        const int n = 4;
-        int x[n][n] = {
-                1, 3, 4, 4,
-                2, 3, 3, 2,
-                1, 0, 0, 1,
-                0, 1, 0, 1
-        };
-        cout << "Введенный массив:\n";
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; ++j) {
-                cout << x[i][j] << " ";
-            }
-            cout << endl;
-        }
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (x[i][j] != x[i][n - j - 1]) {
-                    check = false;
-                }
-            }
-            if (check) {
-                result += " " + to_string(i + 1);
-            }
-            check = true;
-        }
-        cout << "Строки-палиндромы:" <<result;
-    }
+    A1 value1;
+    value1.PrintMsg();
+    B1 value2("йоу");
+    value2.PrintMsg();
+    cout << endl;
     return 0;
 }
