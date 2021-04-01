@@ -19,7 +19,7 @@ public:
         this->Size = other.Size; // копируем поле от исходного обьекта
         this->data = new int[other.Size]; // создаем массив data нового обьекта с размером Size из копируемого обьекта
         for (int i = 0; i < other.Size; ++i) {
-            this->data[i] = other.data[i]; // копируем массив из старого обьекта (other) в нвоый
+            this->data[i] = other.data[i]; // копируем массив из старого обьекта (other) в новый
         }
     }
     // Перегрузка оператора присваивания
