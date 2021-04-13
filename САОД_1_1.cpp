@@ -22,6 +22,7 @@ void delFirstMethod(int *x, int *n, int key) { // первый метод
     int i = 0;
     while (i <= *n) {
         if (x[i] == key) {
+            // перезапись текущего элемента следующим
             for (int j = i; j < *n - 1; j++) {
                 x[j] = x[j + 1];
             }
@@ -39,6 +40,7 @@ void delSecondMethod(int *x, int *n, int key) { // второй метод
     int j = 0;
     for (int i = 0; i < *n; i++) {
         x[j] = x[i];
+// если текущий элемент не равен удаляемому, перейти к следующему
         if (x[i] != key) {
             j++;
         }
