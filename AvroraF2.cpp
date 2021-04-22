@@ -29,7 +29,7 @@ void pressKeyB(char mK)
     }
     ip.ki.dwExtraInfo = 0;
     SendInput(1, &ip, sizeof(INPUT));
- 
+
 
     ip.ki.dwFlags = KEYEVENTF_UNICODE | KEYEVENTF_KEYUP;
     SendInput(1, &ip, sizeof(INPUT));
@@ -68,35 +68,67 @@ void pressTab()
     SendInput(1, &ip, sizeof(INPUT));
 }
 
+wstring GetClipboardText()
+{
+    if (!OpenClipboard(nullptr))
+    {
+        CloseClipboard();
+        return L"";
+    }
+
+    HANDLE hData = GetClipboardData(CF_UNICODETEXT);
+    if (hData == nullptr)
+    {
+        CloseClipboard();
+        return L"";
+    }
+
+    wchar_t* pszText = static_cast<wchar_t*>(GlobalLock(hData));
+    if (pszText == nullptr)
+    {
+        CloseClipboard();
+        return L"";
+    }
+
+    wstring text(pszText);
+
+    GlobalUnlock(hData);
+    CloseClipboard();
+
+    return text;
+}
+
+
 int main()
 {
     srand(time(0));
-    char t;
 
-    ifstream f("C:\\Users\\kozlo\\source\\repos\\Class\\Class\\Class.cpp");
+    wstring clipboardText = GetClipboardText();
+    string s(clipboardText.begin(), clipboardText.end());
 
-    Sleep(5000); 
+    while (true) {
 
-    f.get(t);
-    while (!f.eof())
-    {
+        if ((GetAsyncKeyState(VK_F2) & 0x8000)) {
+            cout << "writing...\n";
+            for (int i = 0; i < s.length(); i++)
+            {
+                switch (s[i]) {
+                    case '\n':
+                        pressEnter();
+                    case '\t':
+                        break;
+                        pressTab();
+                        break;
+                    default:
+                        pressKeyB(s[i]);
+                        break;
+                }
 
-        switch (t) {
-        case '\n':
-            pressEnter();
-        case '\t':
-            break;
-            pressTab();
-            break;
-        default:
-            pressKeyB(t);
-            break;
+                Sleep(100 + rand() % 200);
+            }
         }
-
-        f.get(t);
-        Sleep(150 + rand() % 200);
+        Sleep(1);
     }
     system("PAUSE");
-    f.close();
     return 0;
 }
