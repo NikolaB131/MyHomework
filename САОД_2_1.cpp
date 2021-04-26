@@ -17,14 +17,26 @@ void printArray(int *x, int n) { // вывод массива на экран
     }
 }
 
-int counterCompare = 0, counterReplace = 0;
+void fillArrayAscending(int *x, int n) {
+    for (int i = 0; i < n; ++i) {
+        x[i] = i + 1;
+    }
+}
+
+void fillArrayDescending(int *x, int n) {
+    for (int i = 0; i < n; ++i) {
+        x[i] = n - i;
+    }
+}
+
+long long int counterCompare = 0, counterReplace = 0;
 void exchangeSort(int *x, int n) {
     StartCounter();
     // два цикла, чтобы обработать весь массив
     for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n - 1; j++) {
+        for (int j = 0; j < n - 1; j++) { // n выполнений
             counterCompare++;
-            if (x[j] > x[j + 1]) {
+            if (x[j] > x[j + 1]) { // если текущий больше следующего
                 counterReplace++;
                 int temp = x[j]; // замена
                 x[j] = x[j + 1];
@@ -35,49 +47,40 @@ void exchangeSort(int *x, int n) {
     counter = GetCounter();
 }
 
-void insertionSort(int *x, int n) {
-    StartCounter();
-    for (int i = 1; i < n; i++) { // со 2 элемента, т.к. 1 вставлен
-        int k = i;
-        // пока меньший элемент не стоит перед большим
-        while (k > 0 && x[k - 1] > x[k]) {
-            int temp = x[k]; // меняем элементы местами
-            x[k - 1] = x[k];
-            x[k] = temp;
-            // для проверки того, нужно ли продолжать менять элементы
-            k--;
-        }
-    }
-    counter = GetCounter();
-}
 int main() {
-    int n, choice1;
+    int n, choice;
     cout << "Введите количество элементов исходного массива: ";
     cin >> n;
     int *A = new int[n];
 
-    cout << "1 - заполнить массив самому, 2 - функцией rand(): ";
-    cin >> choice1;
-    if (choice1 == 1) {
+    cout << "1 - заполнить массив самому\n2 - функцией rand()\n3 - заполнить по возрастанию\n4 - заполнить по убыванию"
+            "\nВыбор: ";
+    cin >> choice;
+    if (choice == 1) {
+        int temp;
         for (int i = 0; i < n; i++) {
-            int temp;
             cin >> temp;
             A[i] = temp;
         }
     }
-    else if (choice1 == 2)
+    else if (choice == 2)
         fillArray(A, n);
+    else if (choice == 3)
+        fillArrayAscending(A, n);
+    else if (choice == 4)
+        fillArrayDescending(A, n);
 
     cout << "Исходный массив:";
     printArray(A, n);
 
-    insertionSort(A, n);
+    exchangeSort(A, n);
 
     cout << "\nОтсортированный массив:";
     printArray(A, n);
 
-    cout << "\nКоличество сравнений: " << counterCompare << endl;
-    cout << "Количество перемещений: " << counterReplace << endl;
-    cout << "Затраченное время (в мс): " << counter;
+    cout << "\nКоличество сравнений: " << counterCompare;
+    cout << "\nКоличество перемещений: " << counterReplace;
+    cout << "\nКоличество сравнений и перемещений: " << counterCompare + counterReplace;
+    cout << "\nЗатраченное время (в мс): " << counter;
     return 0;
 }

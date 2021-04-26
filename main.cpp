@@ -1,134 +1,86 @@
+#include "QueryPerformanceCounter.h" // для подсчета времени
 #include <iostream>
-#include <fstream>
-#include <Windows.h>
-#include <locale>
-#include <stdio.h>
-#include <sstream>
-#include <time.h>
-
 using namespace std;
 
-void pressKeyB(char mK)
-{
-    HKL kbl = GetKeyboardLayout(0);
-    INPUT ip;
-    ip.type = INPUT_KEYBOARD;
-    ip.ki.time = 0;
-    ip.ki.dwFlags = KEYEVENTF_UNICODE;
-    if ((int)mK < 65 && (int)mK>90) //for lowercase
-    {
-        ip.ki.wScan = 0;
-        ip.ki.wVk = VkKeyScanEx(mK, kbl);
+double counter; // счетчик времени
+// заполнение массива случайными числами
+void fillArray(int *x, int n) {
+    srand(time(nullptr));
+    for (int i = 0; i < n; ++i) {
+        x[i] = rand() % 10;
     }
-    else //for uppercase
-    {
-        if ((int)mK > 0) {
-            ip.ki.wScan = mK;
-            ip.ki.wVk = 0;
-        }
-    }
-    ip.ki.dwExtraInfo = 0;
-    SendInput(1, &ip, sizeof(INPUT));
-
-
-    ip.ki.dwFlags = KEYEVENTF_UNICODE | KEYEVENTF_KEYUP;
-    SendInput(1, &ip, sizeof(INPUT));
-
 }
 
-void pressEnter()
-{
-    INPUT ip;
-    ip.type = INPUT_KEYBOARD;
-    ip.ki.time = 0;
-    ip.ki.dwFlags = KEYEVENTF_UNICODE;
-    ip.ki.wScan = VK_RETURN; //VK_RETURN is the code of Return key
-    ip.ki.wVk = 0;
-
-    ip.ki.dwExtraInfo = 0;
-    SendInput(1, &ip, sizeof(INPUT));
-
-    ip.ki.dwFlags = KEYEVENTF_UNICODE | KEYEVENTF_KEYUP;
-    SendInput(1, &ip, sizeof(INPUT));
+void printArray(int *x, int n) { // вывод массива на экран
+    for (int i = 0; i < n; ++i) {
+        cout << " " << x[i];
+    }
 }
 
-void pressTab()
-{
-    INPUT ip;
-    ip.type = INPUT_KEYBOARD;
-    ip.ki.time = 0;
-    ip.ki.dwFlags = KEYEVENTF_UNICODE;
-    ip.ki.wScan = VK_TAB; //VK_RETURN is the code of Return key
-    ip.ki.wVk = 0;
-
-    ip.ki.dwExtraInfo = 0;
-    SendInput(1, &ip, sizeof(INPUT));
-
-    ip.ki.dwFlags = KEYEVENTF_UNICODE | KEYEVENTF_KEYUP;
-    SendInput(1, &ip, sizeof(INPUT));
+void fillArrayAscending(int *x, int n) {
+    for (int i = 0; i < n; ++i) {
+        x[i] = i + 1;
+    }
 }
 
-wstring GetClipboardText()
-{
-    if (!OpenClipboard(nullptr))
-    {
-        CloseClipboard();
-        return L"";
+void fillArrayDescending(int *x, int n) {
+    for (int i = 0; i < n; ++i) {
+        x[i] = n - i;
     }
-
-    HANDLE hData = GetClipboardData(CF_UNICODETEXT);
-    if (hData == nullptr)
-    {
-        CloseClipboard();
-        return L"";
-    }
-
-    wchar_t* pszText = static_cast<wchar_t*>(GlobalLock(hData));
-    if (pszText == nullptr)
-    {
-        CloseClipboard();
-        return L"";
-    }
-
-    wstring text(pszText);
-
-    GlobalUnlock(hData);
-    CloseClipboard();
-
-    return text;
 }
 
-
-int main()
-{
-    srand(time(0));
-
-    wstring clipboardText = GetClipboardText();
-    string s(clipboardText.begin(), clipboardText.end());
-
-    while (true) {
-
-        if ((GetAsyncKeyState(VK_F2) & 0x8000)) {
-            cout << "writing...\n";
-            for (int i = 0; i < s.length(); i++)
-            {
-                switch (s[i]) {
-                    case '\n':
-                        pressEnter();
-                    case '\t':
-                        break;
-                        pressTab();
-                        break;
-                    default:
-                        pressKeyB(s[i]);
-                        break;
-                }
-
-                Sleep(100 + rand() % 200);
+long long int counterCompare = 0, counterReplace = 0;
+void exchangeSort(int *x, int n) {
+    StartCounter();
+    // два цикла, чтобы обработать весь массив
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n - 1; j++) { // n выполнений
+            counterCompare++;
+            if (x[j] > x[j + 1]) { // если текущий больше следующего
+                counterReplace++;
+                int temp = x[j]; // замена
+                x[j] = x[j + 1];
+                x[j + 1] = temp;
             }
         }
-        Sleep(1);
     }
-    system("PAUSE");
+    counter = GetCounter();
+}
+
+int main() {
+    int n, choice;
+    cout << "Введите количество элементов исходного массива: ";
+    cin >> n;
+    int *A = new int[n];
+
+    cout << "1 - заполнить массив самому\n2 - функцией rand()\n3 - заполнить по возрастанию\n4 - заполнить по убыванию"
+            "\nВыбор: ";
+    cin >> choice;
+    if (choice == 1) {
+        int temp;
+        for (int i = 0; i < n; i++) {
+            cin >> temp;
+            A[i] = temp;
+        }
+    }
+    else if (choice == 2)
+        fillArray(A, n);
+    else if (choice == 3)
+        fillArrayAscending(A, n);
+    else if (choice == 4)
+        fillArrayDescending(A, n);
+
+    cout << "Исходный массив:";
+    printArray(A, n);
+
+    exchangeSort(A, n);
+
+    cout << "\nОтсортированный массив:";
+    printArray(A, n);
+
+    cout << "\nКоличество сравнений: " << counterCompare;
+    cout << "\nКоличество перемещений: " << counterReplace;
+    cout << "\nКоличество сравнений и перемещений: " << counterCompare + counterReplace;
+    cout << "\nЗатраченное время (в мс): " << counter;
     return 0;
 }
