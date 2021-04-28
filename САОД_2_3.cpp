@@ -17,18 +17,24 @@ void printArray(int *x, int n) { // вывод массива на экран
     }
 }
 
+long long int counterCompare = 0, counterReplace = 0;
 void insertionSort(int *x, int n) {
     StartCounter();
     for (int i = 1; i < n; i++) { // со 2 элемента, т.к. 1 вставлен
+        counterReplace++;
         int temp = x[i]; // запоминаем текущий элемент
         int j = i - 1;
         // пока элемент слева больше текущего элемента
+        counterCompare++; // кол-во сравнений всех элементов
         while (j >= 0 && x[j] > temp) {
+            counterCompare++; // кол-во сравнений для текущего элемента
             // если элемент слева больше текущего, сдвигаем его вправо
+            counterReplace++;
             x[j + 1] = x[j]; // перезапись правого элемента левым
             j--; // сравниваем следующий элемент
         }
         // помещаем текущий элемент в освободившуюся позицию
+        counterReplace++;
         x[j + 1] = temp;
     }
     counter = GetCounter();
@@ -60,6 +66,9 @@ int main() {
     cout << "\nОтсортированный массив:";
     printArray(A, n);
 
+    cout << "\nКоличество сравнений: " << counterCompare;
+    cout << "\nКоличество перемещений: " << counterReplace;
+    cout << "\nКоличество сравнений и перемещений: " << counterCompare + counterReplace;
     cout << "\nЗатраченное время (в мс): " << counter;
     return 0;
 }

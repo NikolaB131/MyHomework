@@ -33,11 +33,11 @@ long long int counterCompare = 0, counterReplace = 0;
 void exchangeSort(int *x, int n) {
     StartCounter();
     // два цикла, чтобы обработать весь массив
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n - 1; j++) { // n выполнений
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - 1 - i; j++) { // n выполнений
             counterCompare++;
             if (x[j] > x[j + 1]) { // если текущий больше следующего
-                counterReplace++;
+                counterReplace += 3;
                 int temp = x[j]; // замена
                 x[j] = x[j + 1];
                 x[j + 1] = temp;
