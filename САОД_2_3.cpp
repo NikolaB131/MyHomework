@@ -70,5 +70,6 @@ int main() {
     cout << "\nКоличество перемещений: " << counterReplace;
     cout << "\nКоличество сравнений и перемещений: " << counterCompare + counterReplace;
     cout << "\nЗатраченное время (в мс): " << counter;
+    delete[] A;
     return 0;
 }
