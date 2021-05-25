@@ -25,7 +25,7 @@ int idGenerator::counter = 0;
 
 
 int main() {
-    idGenerator::lol();
+    idGenerator::lol(); // вызов метода без объекта
     idGenerator object1;
     idGenerator object2;
     object2.getId();
