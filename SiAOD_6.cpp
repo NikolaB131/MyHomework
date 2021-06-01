@@ -126,12 +126,12 @@ void List::printBooksNotReturned(Node* reader, string date) {
 
 void List::printReader(Node *reader, string date) {
     cout << "|Информация о читателе №" << reader->data.readerNumber << '|'
-    << endl << "|Книги на руках|\n";
+         << endl << "|Книги на руках|\n";
     Book* currentBook = reader->data.booksList->first;
     while (currentBook) {
         cout << "Инвентарный номер книги: " << currentBook->stockNumber <<
-        endl << "Дата выдачи книги:   " << currentBook->dateOfIssue << endl
-        << "Дата возврата книги: " << currentBook->dateOfReturn << endl;
+             endl << "Дата выдачи книги:   " << currentBook->dateOfIssue << endl
+             << "Дата возврата книги: " << currentBook->dateOfReturn << endl;
         currentBook = currentBook->nextBook;
     }
     cout << endl;
@@ -190,7 +190,7 @@ void List::randomGenerate(unsigned int numberOfReaders, string date) {
                 issueMonth = '0' + issueMonth;
             }
             string issueYear = to_string(stoi(date.substr(6, 4))
-                    - (rand() % 2 + 1));
+                                         - (rand() % 2 + 1));
             string dateOfIssue = issueDay + '.';
             dateOfIssue += issueMonth + '.';
             dateOfIssue += issueYear;
@@ -262,7 +262,7 @@ int main() {
                     cout << "Введите дату возврата книги (в формате DD.MM.YYYY): ";
                     cin >> dateOfReturn;
                     library.find(readerNumber)->data.booksList->
-                    addBook(stockNumber, dateOfIssue, dateOfReturn);
+                            addBook(stockNumber, dateOfIssue, dateOfReturn);
                 }
                 cout << endl;
                 break;
@@ -292,7 +292,7 @@ int main() {
                 cout << "Введите дату возврата книги (в формате DD.MM.YYYY): ";
                 cin >> dateOfReturn;
                 library.find(readerNumber)->data.booksList->
-                addBook(stockNumber, dateOfIssue, dateOfReturn);
+                        addBook(stockNumber, dateOfIssue, dateOfReturn);
                 break;
             case 8:
                 cout << "Введите номер читателя: ";
@@ -300,7 +300,7 @@ int main() {
                 cout << "Введите номер книги, которую необходимо вернуть: ";
                 cin >> stockNumber;
                 library.find(readerNumber)->data.booksList->
-                returnBook(stockNumber);
+                        returnBook(stockNumber);
                 break;
             case 9:
                 cout << "Введите номер читателя: ";

@@ -46,7 +46,7 @@ void exchangeSort(int *x, int n) {
                 swap = true;
             }
         }
-        if (!swap) {// условие Айверсона
+        if (!swap) { // условие Айверсона
             counter = GetCounter();
             return;
         }
