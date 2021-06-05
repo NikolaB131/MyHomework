@@ -74,6 +74,18 @@ public:
         size = 0;
     }
 
+    void lastToFirst () {
+        if (first->nextNode) {
+            Node* last = first;
+            while (last->nextNode->nextNode) {
+                last = last->nextNode;
+            }
+            int temp = last->nextNode->data;
+            last->nextNode->data = first->data;
+            first->data = temp;
+        }
+    }
+
     friend void sortListHighest(List& list);
     friend void sortListLowest(List& list);
     friend void relocateWithLowestSort(List& L1, List& L2);
@@ -199,7 +211,8 @@ int main() {
         cout << "Выберите действие:\n1 - удалить элемент из списка L1\n"
                 "2 - перенести все элементы из списка L1 в список "
                 "L2 порядке возрастания младшей цифры\n3 - проверить упорядочен"
-                " ли список L2 по возрастанию\n4 - выход\n";
+                " ли список L2 по возрастанию\n4 - поменять местами первый и "
+                "последний элемент\n5 - выход\n";
         cin >> choice;
         switch (choice) {
             case 1:
@@ -215,6 +228,9 @@ int main() {
                 isListSortedAscending(L2);
                 break;
             case 4:
+                L1.lastToFirst();
+                break;
+            case 5:
                 goto end;
             default:
                 break;
