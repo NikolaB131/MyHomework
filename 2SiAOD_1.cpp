@@ -1,79 +1,63 @@
 #include <iostream>
-#include <cstdlib>
-
+#include <string>
+#include <cmath>
 using namespace std;
 
-int mask1(int d16) {
-    const int mask = 0xf;
-    int i = 1;
-    int k = 1;
+string decToBin(int x) { // перевод из десятичной СС в двоичную
+    string result;
     while (true) {
-        if (i > (d16 - i)) break;
-        i *= 2;
-        k++;
-    }
-    if (k <= 4) {
-        return (d16 | (mas >> (4 - k)));
-    } else {
-        return (d16 | (mas << (k - 4)));
-    }
-}
-
-int mask2(int d16_2) {
-    const int mask2 = 0xffafb;
-    return (d16_2 & mask2);
-}
-
-int multiply(int d16_3) {
-    return (d16_3 « 9);
-}
-
-int divide(int d16_3) {
-    return (d16_3 >> 9);
-}
-
-int mask(int d16, int n) {
-    int i = 1;
-    int mask = 1;
-    int k = 0;
-    while (true) {
-        if (i > (d16 - i)) break;
-        i *= 2;
-        k++;
-    }
-    if (k + 1 == n) {
-        while (k > 1) {
-            mask << 1;
-            mask++;
-            k--;
+        result = to_string(x % 2) + result;
+        if (x / 2 == 0) {
+            break;
         }
-    } else {
-        for (int j = k; j > 0; j--) {
-            mask << 1;
-            if (k != n)
-                mask++;
-        }
+        x /= 2;
     }
-    return (d16 & mask);
+    return result;
+}
+
+int operator1(int x) {
+    int mask = 10; // 1010
+    return x | mask; // 11111
+}
+
+int operator2(int x) {
+    int mask = 65295; // 1111 1111 0000 1111
+    return x & mask;
+}
+
+int operator3(int x) {
+    return x << 5; // *32
+}
+
+int operator4(int x) {
+    return x >> 5; // /32
+}
+
+int operator5(int x, int n) {
+    int length = int(decToBin(x).length());
+    int mask = 32768; // 1000 0000 0000 0000
+    mask = mask >> -(length - 15 - n); // сдвиг 1 в начальной маске под необходимый номер бита
+    return x | mask;
 }
 
 int main() {
-    setlocale(0, "rus");
-    const int d16 = 0x0005;
-    int d16_2;
-//cout « hex « d16«endl;
-    cout << mask1(d16) << endl;
-    cin >> d16_2;
-    cout << mask2(d16_2) << endl;
-    int d2;
-    cin >> d2;
-    cout << multiply(d2) << endl;
-    cin >> d2;
-    cout << divide(d2) << endl;
-/*int n;
-int digitN;
-cin » hex»digitN;
-cout « "бит, который требуется изменить на 0" « endl;
-cin » n;
-cout « hex « mask(digitN, n) « endl;*/
+    int x = 0x15; // 10101
+    int n;
+    cout << "Оператор 1: " << "Было: " << decToBin(x) << ", стало: " << decToBin(operator1(x));
+    cout << "\nВведите значение для 2 оператора в десятичном формате: ";
+    cin >> x;
+    cout << "Оператор 2: " << "Было: " << decToBin(x) << ", стало: " << decToBin(operator2(x));
+    cout << "\nВведите значение для 3 оператора в десятичном формате: ";
+    cin >> x;
+    cout << "Оператор 3: " << "Было: " << x << ", стало: " << operator3(x);
+    cout << "\nВведите значение для 4 оператора в десятичном формате: ";
+    cin >> x;
+    cout << "Оператор 4: " << "Было: " << x << ", стало: " << operator4(x);
+    cout << "\nВведите значение для 5 оператора в десятичном формате: ";
+    cin >> x;
+    cout << "Введенное число в двоичном формате: " << decToBin(x)
+         << "\nВведите номер бита который необходмо установить в 1: ";
+    cin >> n;
+    cout << "Оператор 5: " << "Было:  " << decToBin(x) << "\n            Стало: " << decToBin(operator5(x, n));
+    return 0;
 }
