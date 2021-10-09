@@ -34,11 +34,10 @@ int operator4(int x) {
 }
 
 int operator5(int x, int n) {
-    int length = int(decToBin(x).length());
     int mask = 32768; // 1000 0000 0000 0000
-    mask = mask >> -(length - 15 - n); // сдвиг 1 в начальной маске под необходимый номер бита
+    mask = mask >> (15 - n); // сдвиг вправо в начальной маске под необходимый номер бита
     return x | mask;
- }
+}
 
 int main() {
     int x = 0x15; // 10101
