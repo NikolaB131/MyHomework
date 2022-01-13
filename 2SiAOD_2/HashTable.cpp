@@ -30,8 +30,14 @@ void HashTable::remove(string key) {
     if (resultOfSearch != -1) {
         Element* temp = &table[resultOfSearch];
         if (temp->key == key) { // если необходимый ключ первый в цепочке
-            temp = temp->pNext;
-            table[resultOfSearch] = *temp;
+            if (temp->pNext == nullptr) { // если элемент под этим индексом только один
+                table[resultOfSearch].key = "";
+                table[resultOfSearch].offset = 0;
+            } else {
+                // делаем следующий элемент цепочки головным
+                temp = temp->pNext;
+                table[resultOfSearch] = *temp;
+            }
         } else { // если необходимый ключ где-то дальше
             while (temp->pNext->key != key) {
                 temp = temp->pNext;
@@ -41,7 +47,7 @@ void HashTable::remove(string key) {
         }
         filled--; // уменьшение заполненных ячеек
     } else {
-        cout << "Элемента с ключом " << key << " не существует!\n";
+        cout << "\nЭлемента с ключом " << key << " не существует!\n";
     }
 }
 

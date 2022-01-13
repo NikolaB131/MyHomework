@@ -1,7 +1,9 @@
 #include "TableAndFileManager.h"
 
+
 TableAndFileManager::TableAndFileManager(string sourceFileName, string binaryFileName) {
     this->binaryFileName = binaryFileName;
+    this->sourceFileName = sourceFileName;
 
     ifstream sourceFile("..\\2SiAOD_2\\" + sourceFileName); // открываем файл на чтение
     if (!sourceFile.is_open()) {
@@ -14,25 +16,13 @@ TableAndFileManager::TableAndFileManager(string sourceFileName, string binaryFil
         return;
     }
     // Перевод исходного файла в двоичный файл и в хеш таблицу
-    string data, tableTemp;
+    string data;
     while (getline(sourceFile, data)) {
         add(data);
     }
     binFile.close();
     sourceFile.close();
-
-//    binFile.open("..\\2SiAOD_2\\" + binaryFileName, ofstream::binary | fstream::in); // чтение
-//    while (!binFile.eof()) {
-//        char buf[50] = {};
-//        binFile.read(buf, 50 * sizeof(char));
-//        for (int i = 0; i < 50; i++) {
-//            cout << buf[i];
-//        }
-//        cout << endl;
-//    }
-//    binFile.close();
 }
-
 
 void TableAndFileManager::add(string data) {
     // Добавление ключа и смещения в таблицу
@@ -51,11 +41,19 @@ void TableAndFileManager::add(string data) {
 
 
 string TableAndFileManager::get(string key) {
-    ifstream binFile("..\\2SiAOD_2\\" + binaryFileName, ifstream::binary); // чтение
-    int offset = hashTable.table[hashTable.find(key)].offset; // поиск смещения по ключу
+    if (hashTable.find(key) == -1) {
+        cout << "\nЗаписи с таким ключом " << key << " не существует!";
+        return "";
+    }
 
+    ifstream binFile("..\\2SiAOD_2\\" + binaryFileName, ifstream::binary); // чтение
+    // поиск необходимого элемента в цепочке
+    HashTable::Element* tempElement = &hashTable.table[hashTable.find(key)];
+    while (tempElement->key != key) {
+        tempElement = tempElement->pNext;
+    }
     char data[50];
-    binFile.seekg(offset * sizeof(data), ios::beg); // перемещение курсора в нужную позицию бинарного файла
+    binFile.seekg(tempElement->offset * sizeof(data), ios::beg); // перемещение курсора в нужную позицию бинарного файла
     binFile.read(data, sizeof(data));
     binFile.close();
     return data;
@@ -63,15 +61,26 @@ string TableAndFileManager::get(string key) {
 
 
 void TableAndFileManager::remove(string key) {
-    // Удаление ключа из таблицы
-    hashTable.remove(key);
+    ifstream sourceFile("..\\2SiAOD_2\\" + sourceFileName); // открываем файл на чтение
+    if (!sourceFile.is_open()) {
+        cout << sourceFileName << " не может быть открыт!";
+        return;
+    }
+    fstream binFile("..\\2SiAOD_2\\" + binaryFileName, fstream::binary | fstream::out); // запись
+    if (!binFile.is_open()) {
+        cout << binaryFileName << " не может быть открыт!";
+        return;
+    }
+    // Перевод исходного файла за исключением удаленной записи в двоичный файл и в хеш таблицу
+    hashTable = *(new HashTable);
+    currentOffset = 0;
 
-    // Удаление данных из бинарного файла
-    ofstream binFile("..\\2SiAOD_2\\" + binaryFileName, ofstream::binary); // запись
-    int offset = hashTable.table[hashTable.find(key)].offset; // поиск смещения по ключу
-
-    char data[2] = {1, 2}; // пустой массив
-    binFile.seekp(offset * sizeof(data), ios::beg); // перемещение курсора в нужную позицию бинарного файла
-    binFile.write(data, sizeof(data));
+    string data;
+    while (getline(sourceFile, data)) {
+        if (data.substr(0, 9) != key) {
+            add(data);
+        }
+    }
     binFile.close();
+    sourceFile.close();
 }

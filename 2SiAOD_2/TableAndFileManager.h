@@ -11,9 +11,10 @@ public:
     void add(string data);
     string get(string key); // получить дынные по ключу
     void remove(string key);
+    HashTable hashTable;
 private:
     string binaryFileName;
-    HashTable hashTable;
+    string sourceFileName;
     int currentOffset = 0;
 };
 
